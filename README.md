@@ -74,3 +74,25 @@ spec:
       targetPort: 6041
 
 ```
+4. Created an EKS Cluster with 3 nodes in AWS installed the above Deployment and Service as well as a metrics server for Horizontal pod autoscaling also created HPA.yaml for the same 
+```
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: backend-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: my-node-app
+  minReplicas: 1
+  maxReplicas: 3
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+
+```
