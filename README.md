@@ -1,5 +1,6 @@
 # Steps:
-1. Downloaded the application and ran it in my laptop and then dockerised it and once added it to my Dockerhub account
+1. Downloaded the application and made sure it ran in my laptop, added the missing script in package.json "start": "node index.js"
+2. Dockerise the application and push it to Dockerhub https://hub.docker.com/r/thasir/nodeapp
 ```
 # Use an official Node.js runtime as a parent image
 FROM node:23-alpine3.19
@@ -21,5 +22,55 @@ EXPOSE 6041
 
 # Define the command to run the app
 CMD ["npm", "start"]
+
+```
+3. Created Deployment file and Service Files for the application
+
+```
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-node-app
+  labels:
+    app: my-node-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-node-app
+  template:
+    metadata:
+      labels:
+        app: my-node-app
+    spec:
+      containers:
+      - name: my-node-app
+        image: docker.io/thasir/nodeapp:v1
+        ports:
+        - containerPort: 6041
+          protocol: TCP
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "100Mi"         
+          limits:
+            cpu: "500m"
+            memory: "500Mi"
+```
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-node-app-service
+spec:
+  type: NodePort
+  selector:
+    app: my-node-app
+  ports:
+    - protocol: TCP
+      port: 6041
+      targetPort: 6041
 
 ```
