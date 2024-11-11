@@ -101,9 +101,9 @@ spec:
         averageUtilization: 50
 
 ```
-6.Tag the public subnets with Tag name: kubernetes.io/role/elb; Tag value: 1 so that load balancer controller can recognize which subnets should be used for creating internet-facing load balancers
-7.Create IAM OIDC identity provider for your cluster which helps EKS cluster interact with AWS services
-8.Create load balancer controller policy and load balancer trust policy these IAM policies defines the permissions required by the load balancer controller to manage AWS resources
+6. Tag the public subnets with Tag name: kubernetes.io/role/elb; Tag value: 1 so that load balancer controller can recognize which subnets should be used for creating internet-facing load balancers
+7. Create IAM OIDC identity provider for your cluster which helps EKS cluster interact with AWS services
+8. Create load balancer controller policy and load balancer trust policy these IAM policies defines the permissions required by the load balancer controller to manage AWS resources
 ```
 {
     "Version": "2012-10-17",
@@ -345,8 +345,8 @@ spec:
    ]
 }
 ```
-9.Create load balancer controller role and attached the above policy to the same 
-10.Create service account The service account allows the load balancer controller to authenticate with the IAM role using the OIDC identity provider.
+9. Create load balancer controller role and attached the above policy to the same 
+10. Create service account The service account allows the load balancer controller to authenticate with the IAM role using the OIDC identity provider.
 ```
 apiVersion: v1
 kind: ServiceAccount
@@ -359,8 +359,8 @@ metadata:
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::282235880585:role/load-balancer-controller-role
 ```
-11.Add eks-charts helm repository and update.
-12.Install load balancer controller using helm.
+11. Add eks-charts helm repository and update.
+12. Install load balancer controller using helm.
 ```
 helm repo add eks https://aws.github.io/eks-charts
 
@@ -368,7 +368,7 @@ helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n ku
 
 ```
 
-Apply the ingress yaml kubectl config.
+13. Apply the ingress yaml kubectl config.
 
 ```
 apiVersion: networking.k8s.io/v1
