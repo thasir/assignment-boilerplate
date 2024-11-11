@@ -394,3 +394,7 @@ spec:
 14. This will create internet facing application load balancer for the EKS cluster with which we can access the website 
 
 http://k8s-default-mynodeap-c220f427ce-550785778.us-east-1.elb.amazonaws.com/
+
+15. The Loom video for the above task 
+
+https://www.loom.com/share/2f8dc0b000b24a2394ba90ed9afabbe9
